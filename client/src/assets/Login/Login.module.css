@@ -1,0 +1,65 @@
+.LoginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffd600;
+  position: relative;
+  overflow: hidden;
+  font-size: 4px;
+}
+
+.brandLogo {
+  font-weight: 900;
+  position: absolute;
+  letter-spacing: -30px;
+  font-size: 370px;
+  z-index: 1;
+  bottom: 0;
+  line-height: 250px;
+  left: -50px;
+}
+
+.manContainer {
+  position: absolute;
+  bottom: -120px;
+  right: 0;
+  z-index: 2;
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 1024px) {
+  .brandLogo {
+    font-size: 270px;
+    line-height: 200px;
+  }
+  .manContainer {
+    right: -200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .brandLogo {
+    font-size: 200px;
+    letter-spacing: -20px;
+    line-height: 150px;
+  }
+  .LoginContainer {
+    font-size: 3px;
+  }
+  .manContainer {
+    right: -250px;
+  }
+}
+
+@media (max-width: 425px) {
+  .brandLogo {
+    font-size: 120px;
+    letter-spacing: -12px;
+    line-height: 80px;
+  }
+  .manContainer {
+    display: none;
+  }
+}
