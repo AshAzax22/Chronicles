@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import Note from "./Note";
 
-const api_url =
-  "chroniclesserver-d0kdjoxxa-ashutosh-purushottams-projects.vercel.app";
+const api_url = import.meta.env.VITE_API_URL;
+
 const Dashboard = () => {
   const handleLogOut = async () => {
     const response = await fetch(`${api_url}/logout`, {

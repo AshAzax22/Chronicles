@@ -2,8 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
-const api_url =
-  "chroniclesserver-d0kdjoxxa-ashutosh-purushottams-projects.vercel.app";
+const api_url = import.meta.env.VITE_API_URL;
 
 const isAuthenticated = async () => {
   const jwt = localStorage.getItem("jwt");
