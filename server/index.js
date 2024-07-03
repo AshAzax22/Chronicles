@@ -33,9 +33,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 //routes
 app.get("/", (req, res) => {
-  res.send("Welcome to chronicles");
+  res.send("Hello, World!");
 });
 
 //signup route
@@ -168,11 +169,6 @@ app.post("/logout", async (req, res) => {
   user.token_version += 1;
   await user.save();
   res.status(200).json({ message: "logout successfull" });
-});
-
-//server
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
 });
 
 // Function to generate email body based on template type
@@ -341,4 +337,9 @@ app.post("/googleauth/login", async (req, res) => {
     refresh_token: refresh_token,
     token_version: user.token_version,
   });
+});
+
+//server
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
 });
