@@ -7,7 +7,8 @@ import facebookLogo from "./Vectors/facebook.svg";
 import { RefreshContext } from "../AuthProvider/AuthProvider";
 import { useGoogleLogin } from "@react-oauth/google";
 
-const api_url = "http://localhost:3000";
+const api_url =
+  "chroniclesserver-d0kdjoxxa-ashutosh-purushottams-projects.vercel.app";
 
 const LoginForm = () => {
   const RefreshCheck = useContext(RefreshContext);

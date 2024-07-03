@@ -3,7 +3,8 @@ import { jwtDecode } from "jwt-decode";
 
 const RefreshContext = createContext();
 
-const api_url = "http://localhost:3000";
+const api_url =
+  "chroniclesserver-d0kdjoxxa-ashutosh-purushottams-projects.vercel.app";
 
 const RefreshCheck = () => {
   console.log("refresh check called");
