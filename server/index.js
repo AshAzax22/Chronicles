@@ -4,7 +4,7 @@ const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const User = require("./models/User");
+const users = require("./models/users");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
@@ -26,16 +26,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 //routes
 
+app.get("/", (req, res) => {
+  res.send("Welcome to chronicles");
+});
+
 //signup route
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
 
-  if (await User.findOne({ email })) {
+  if (await users.findOne({ email })) {
     return res.status(400).json({ message: "user already exists" });
   }
   try {
     const hashed_password = await bcrypt.hash(password, 10); //hashing the password to store it with a cost factor of 10
-    const user = new User({
+    const user = new users({
       email,
       password: hashed_password,
       refresh_token: "",
@@ -53,7 +57,7 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await users.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "user not found" });
     }
@@ -88,7 +92,7 @@ app.post("/login", async (req, res) => {
 //refresh token route
 app.post("/refresh", async (req, res) => {
   const { email, refresh_token, token_version } = req.body;
-  const user = await User.findOne({ email });
+  const user = await users.findOne({ email });
   if (!user) return res.status(400).json({ message: "refresh failed" });
   console.log(`token version from user: ${user.token_version}`);
   console.log(`token version from request: ${token_version}`);
@@ -121,7 +125,7 @@ const verifyToken = async (req, res, next) => {
   }
   try {
     const payload = jwt.verify(token, JWT_ENCRYPT_KEY); //verify token
-    const user = await User.findOne({ email: payload.email }); //get user from db
+    const user = await users.findOne({ email: payload.email }); //get user from db
     if (!user) {
       return res.status(400).json({ message: "user not found" });
     }
@@ -144,7 +148,7 @@ app.get("/protected", verifyToken, (req, res) => {
 app.post("/logout", async (req, res) => {
   const { token, token_version } = req.body;
   const { email } = jwt.verify(token, JWT_ENCRYPT_KEY);
-  const user = await User.findOne({ email });
+  const user = await users.findOne({ email });
   if (!user) return res.status(400).json({ message: "user does not exist" });
   if (user.refresh_token == "") {
     return res.status(400).json({ message: "user already logged out" });
@@ -186,7 +190,7 @@ We're excited to see what you create and share with Chronicles. Welcome to the c
 Best regards,
 The Chronicles Team`;
     case "googleAuth":
-      return `Dear Valued User,
+      return `Dear Valued users,
 
 Congratulations on joining the Chronicles community! Your account has been successfully created.
 
@@ -261,13 +265,13 @@ app.post("/googleauth/signup", async (req, res) => {
   try {
     const { email } = req.body;
     // Validate email here (not shown)
-    let user = await User.findOne({ email });
+    let user = await users.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: "User already exists." });
+      return res.status(400).json({ message: "users already exists." });
     }
     const temporaryPassword = Math.random().toString(36).slice(-8);
     const hashedPassword = await bcrypt.hash(temporaryPassword, 10); // Use async version
-    user = new User({
+    user = new users({
       email,
       password: hashedPassword,
       refresh_token: "",
@@ -314,7 +318,7 @@ app.post("/verifyotp", async (req, res) => {
 //handle googleAuth login
 app.post("/googleauth/login", async (req, res) => {
   const { email } = req.body;
-  let user = await User.findOne({ email });
+  let user = await users.findOne({ email });
   if (!user) {
     return res.status(400).json({ message: "user does not exist" });
   }

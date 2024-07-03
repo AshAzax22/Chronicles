@@ -231,7 +231,6 @@ const LoginForm = () => {
       alert("sign up failed");
       return;
     }
-    alert("successfull signup");
     signUp(response);
   };
 
