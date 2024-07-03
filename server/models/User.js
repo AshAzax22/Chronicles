@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  token_version: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

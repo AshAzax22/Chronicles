@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Login.module.css";
 import LoginForm from "./LoginForm";
 import man from "./Vectors/man.svg";
 
+const CheckLoggedIn = () => {
+  const jwt = localStorage.getItem("jwt");
+  if (jwt) {
+    window.location.href = "/dashboard";
+  }
+};
+
 const Login = () => {
+  useEffect(() => {
+    CheckLoggedIn();
+  }, []);
+
   return (
     <>
       <div className={styles.LoginContainer}>
