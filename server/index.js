@@ -23,15 +23,16 @@ mongoose.connect(MONGO_URI);
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
+// CORS options
 const corsOptions = {
-  origin: "https://chronicles-plum.vercel.app", // Your frontend domain
-  optionsSuccessStatus: 200, // For legacy browser support
+  origin: "https://chronicles-plum.vercel.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
-
 //routes
 app.get("/", (req, res) => {
   res.send("Welcome to chronicles");
