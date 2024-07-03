@@ -11,7 +11,7 @@ require("dotenv").config();
 
 //constant values and env values
 const MONGO_URI = process.env.MONGO_URI;
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const JWT_ENCRYPT_KEY = process.env.JWT_ENCRYPT_KEY;
 const REFRESH_TOKEN_KEY = process.env.REFRESH_TOKEN_KEY;
 const SENDER_MAIL = process.env.SENDER_MAIL;
